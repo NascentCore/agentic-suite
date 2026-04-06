@@ -5,7 +5,6 @@ import cyclopts
 from .adapters import run_langgraph_amcp_flow
 from .core import ConsentGrant, build_demo_custodian
 
-
 app = cyclopts.App(help="AMCP LangGraph integration example.")
 
 

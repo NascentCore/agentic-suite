@@ -31,8 +31,14 @@ def render_agents(profile: RepoProfile) -> str:
 def render_tools(profile: RepoProfile) -> str:
     template = _load_template("TEMPLATE_TOOLS.md")
     context = profile.to_template_context()
-    raw_test = "\n".join(profile.test_commands) if profile.test_commands else "<replace-with-test-commands>"
-    raw_run = "\n".join(profile.run_commands) if profile.run_commands else "<replace-with-run-commands>"
+    raw_test = (
+        "\n".join(profile.test_commands) if profile.test_commands
+        else "<replace-with-test-commands>"
+    )
+    raw_run = (
+        "\n".join(profile.run_commands) if profile.run_commands
+        else "<replace-with-run-commands>"
+    )
     context["RAW_TEST_COMMANDS"] = raw_test
     context["RAW_RUN_COMMANDS"] = raw_run
     return template.format(**context).strip() + "\n"

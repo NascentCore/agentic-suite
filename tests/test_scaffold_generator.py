@@ -112,7 +112,7 @@ def test_generate_scaffold_writes_to_custom_output_dir(tmp_path: Path) -> None:
 def test_generated_content_reflects_repo_profile(tmp_path: Path) -> None:
     repo = _make_repo(tmp_path)
     options = ScaffoldOptions(target_repo=repo)
-    result = generate_scaffold(options)
+    generate_scaffold(options)
 
     soul_content = (repo / "SOUL.md").read_text(encoding="utf-8")
     assert "sample-repo" in soul_content

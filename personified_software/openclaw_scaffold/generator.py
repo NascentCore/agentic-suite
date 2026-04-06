@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 from .detector import detect_repo_profile
 from .models import RenderedArtifact, ScaffoldOptions, ScaffoldResult
 from .templates import (

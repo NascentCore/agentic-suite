@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -58,7 +59,7 @@ class AMCPMigrationEnvelopeV1(BaseModel):
         output_path.write_text(self.canonical_json() + "\n", encoding="utf-8")
 
     @classmethod
-    def load(cls, input_path: Path) -> "AMCPMigrationEnvelopeV1":
+    def load(cls, input_path: Path) -> AMCPMigrationEnvelopeV1:
         payload = json.loads(input_path.read_text(encoding="utf-8"))
         return cls.model_validate(payload)
 

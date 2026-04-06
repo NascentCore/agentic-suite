@@ -12,7 +12,6 @@ from personified_software.openclaw_scaffold.models import (
     ScaffoldResult,
 )
 
-
 # ---------------------------------------------------------------------------
 # RepoProfile
 # ---------------------------------------------------------------------------

@@ -6,7 +6,6 @@ from pathlib import Path
 
 from .models import IGNORED_DIR_NAMES, RepoProfile
 
-
 EXTENSION_TO_LANGUAGE: dict[str, str] = {
     ".py": "python",
     ".ts": "typescript",
@@ -167,7 +166,10 @@ def _detect_risk_notes(root: Path) -> list[str]:
     if (root / ".github" / "workflows").exists():
         notes.append("CI workflows exist; keep command examples aligned with CI expectations.")
     if (root / "deploy").exists() or (root / "infra").exists():
-        notes.append("Deployment/infrastructure directories detected; require explicit approval before changes.")
+        notes.append(
+            "Deployment/infrastructure directories detected;"
+            " require explicit approval before changes."
+        )
     return notes
 
 

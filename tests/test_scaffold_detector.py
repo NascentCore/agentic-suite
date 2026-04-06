@@ -6,7 +6,6 @@ from pathlib import Path
 
 from personified_software.openclaw_scaffold.detector import detect_repo_profile
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
