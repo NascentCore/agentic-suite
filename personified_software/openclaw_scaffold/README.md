@@ -59,6 +59,7 @@ python3 -m personified_software.openclaw_scaffold.cli /path/to/target-repo --no-
 - `generator.py`: generation orchestration + safe write behavior
 - `cli.py`: command-line interface
 - `template_assets/`: reusable raw markdown template files
+  - includes optional `TEMPLATE_STYLE.md` for communication-style profiles
 
 ## Notes
 
