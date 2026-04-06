@@ -102,7 +102,7 @@ When memory has multiple owners (e.g., conversation memory involving Alice + Bob
 
 ## Minimal reference implementation
 
-File: `research/amcp/main.py`
+File: `amcp/main.py`
 
 CLI commands:
 
@@ -117,7 +117,7 @@ use a **port-adapter architecture**:
 
 ### Layer 1 — AMCP Core (framework-agnostic)
 
-File: `research/amcp/core.py`
+File: `amcp/core.py`
 
 - owns canonical models: `MemoryRecord`, `ConsentGrant`, `AccessRequest`, `AccessDecision`
 - owns policy engine: `MemoryCustodian.evaluate_access()`
@@ -125,7 +125,7 @@ File: `research/amcp/core.py`
 
 ### Layer 2 — Adapter Ports
 
-File: `research/amcp/adapters.py`
+File: `amcp/adapters.py`
 
 - defines framework-facing dependency carrier (`PydanticAIDeps`)
 - converts framework tool calls into `AccessRequest`
@@ -144,7 +144,7 @@ File: `research/amcp/adapters.py`
     - `llm_node` (allowed path)
     - `consent_request_node` (denied path)
   - edge rule: denied -> consent node, allowed -> llm node
-  - example entrypoint: `research/amcp/langgraph_example.py`
+  - example entrypoint: `amcp/langgraph_example.py`
 
 ### Why this works
 
@@ -154,7 +154,7 @@ File: `research/amcp/adapters.py`
 
 ## PydanticAI tests
 
-File: `research/amcp/test_pydanticai_amcp.py`
+File: `amcp/test_pydanticai_amcp.py`
 
 Covered cases:
 
@@ -166,12 +166,12 @@ Covered cases:
 Run:
 
 ```bash
-research/amcp/.venv/bin/python -m pytest -q research/amcp/test_pydanticai_amcp.py
+python3 -m pytest -q amcp/test_pydanticai_amcp.py
 ```
 
 ## LangGraph tests
 
-File: `research/amcp/test_langgraph_amcp.py`
+File: `amcp/test_langgraph_amcp.py`
 
 Covered cases:
 
@@ -182,13 +182,13 @@ Covered cases:
 Run:
 
 ```bash
-research/amcp/.venv/bin/python -m pytest -q research/amcp/test_langgraph_amcp.py
-research/amcp/.venv/bin/python research/amcp/langgraph_example.py
+python3 -m pytest -q amcp/test_langgraph_amcp.py
+python3 -m amcp.langgraph_example
 ```
 
 ## AMCP Migration Manifest v0.1
 
-File: `research/amcp/migration.py`
+File: `amcp/migration.py`
 
 Purpose:
 
@@ -223,7 +223,7 @@ Safety semantics in v0.1:
 
 ## Migration tests
 
-File: `research/amcp/test_migration_manifest.py`
+File: `amcp/test_migration_manifest.py`
 
 Covered cases:
 
@@ -235,7 +235,7 @@ Covered cases:
 Run:
 
 ```bash
-research/amcp/.venv/bin/python -m pytest -q research/amcp/test_migration_manifest.py
+python3 -m pytest -q amcp/test_migration_manifest.py
 ```
 
 ## Demo scenarios covered
@@ -251,11 +251,10 @@ research/amcp/.venv/bin/python -m pytest -q research/amcp/test_migration_manifes
 From repository root:
 
 ```bash
-source .venv/bin/activate
-pip install -r research/amcp/requirements.txt
-python research/amcp/main.py demo
-python research/amcp/main.py self-test
-python research/amcp/main.py export-demo --output research/amcp/demo_bundle.json
+pip install -e ".[amcp]"
+python3 -m amcp.main demo
+python3 -m amcp.main self-test
+python3 -m amcp.main export-demo --output amcp/demo_bundle.json
 ```
 
 ## Future extensions
