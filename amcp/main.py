@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import cyclopts
-from loguru import logger
 from pydantic import ValidationError
 
-from research.amcp.core import (
-    AccessDecision,
+from .core import (
     AccessRequest,
     ConsentGrant,
     MemoryCustodian,
@@ -17,7 +15,6 @@ from research.amcp.core import (
     run_decision_trace,
     utc_now,
 )
-
 
 app = cyclopts.App(help="AMCP minimal reference implementation.")
 
@@ -88,14 +85,14 @@ def self_test() -> None:
             purpose="marketing_analytics",
             scope="single_memory",
             memory_id=memory.memory_id,
-            expires_at=datetime(2000, 1, 1, tzinfo=timezone.utc),
+            expires_at=datetime(2000, 1, 1, tzinfo=UTC),
         )
     )
     backdated_request = AccessRequest(
         memory_id=memory.memory_id,
         requester_runner_did="did:runner:coding-agent-v1",
         purpose="marketing_analytics",
-        requested_at=datetime(1999, 1, 1, tzinfo=timezone.utc),
+        requested_at=datetime(1999, 1, 1, tzinfo=UTC),
     )
     decision = custodian.evaluate_access(backdated_request)
     assert expired_consent.matches(backdated_request, evaluated_at=utc_now()) is False

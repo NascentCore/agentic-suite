@@ -5,8 +5,8 @@ from pydantic_ai.exceptions import UnexpectedModelBehavior
 from pydantic_ai.messages import ModelRequest, ModelResponse, TextPart, ToolCallPart, ToolReturnPart
 from pydantic_ai.models.function import AgentInfo, FunctionModel
 
-from research.amcp.adapters import PydanticAIDeps, create_pydantic_ai_amcp_agent
-from research.amcp.core import ConsentGrant, build_demo_custodian
+from .adapters import PydanticAIDeps, create_pydantic_ai_amcp_agent
+from .core import ConsentGrant, build_demo_custodian
 
 
 def _build_memory_reader_model(memory_id: str, purpose: str) -> FunctionModel:

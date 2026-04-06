@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
-
 IGNORED_DIR_NAMES: tuple[str, ...] = (
     ".git",
     ".venv",
@@ -85,6 +84,7 @@ class ScaffoldOptions:
     target_repo: Path
     output_dir: Path | None = None
     include_skill_alias: bool = True
+    include_style: bool = False
     overwrite: bool = False
     dry_run: bool = False
 
@@ -95,6 +95,8 @@ class ScaffoldOptions:
         files = list(DEFAULT_OUTPUT_FILENAMES)
         if self.include_skill_alias:
             files.append("SKILL.md")
+        if self.include_style:
+            files.append("STYLE.md")
         return files
 
 

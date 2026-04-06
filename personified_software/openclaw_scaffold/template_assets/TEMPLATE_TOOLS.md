@@ -1,24 +1,3 @@
-# TEMPLATE_TOOLS.md
-
-This is the editable source template for generated `TOOLS.md`.
-
-Use placeholders from `models.RepoProfile.to_template_context()`:
-
-- `{REPO_NAME}`
-- `{PRIMARY_LANGUAGE}`
-- `{PACKAGE_MANAGERS}`
-- `{SOURCE_DIRS}`
-- `{TEST_DIRS}`
-- `{DOCS_DIRS}`
-- `{ENTRYPOINT_CANDIDATES}`
-- `{TEST_COMMANDS}`
-- `{RUN_COMMANDS}`
-- `{RISK_NOTES}`
-- `{RAW_TEST_COMMANDS}`
-- `{RAW_RUN_COMMANDS}`
-
----
-
 # TOOLS.md — Command Playbook
 
 This playbook lists practical command patterns for the current repository profile.

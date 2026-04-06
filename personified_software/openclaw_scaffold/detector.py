@@ -6,7 +6,6 @@ from pathlib import Path
 
 from .models import IGNORED_DIR_NAMES, RepoProfile
 
-
 EXTENSION_TO_LANGUAGE: dict[str, str] = {
     ".py": "python",
     ".ts": "typescript",
@@ -28,9 +27,9 @@ def detect_repo_profile(target_repo: Path) -> RepoProfile:
     language_counter = _count_languages(target_repo)
     primary_language, additional_languages = _resolve_languages(language_counter)
     package_managers = _detect_package_managers(target_repo)
-    source_dirs = _detect_named_dirs(target_repo, ("src", "app", "lib", "amcp"))
-    test_dirs = _detect_named_dirs(target_repo, ("tests", "test", "spec", "amcp"))
-    docs_dirs = _detect_named_dirs(target_repo, ("docs", "doc", "personified_software"))
+    source_dirs = _detect_named_dirs(target_repo, ("src", "app", "lib"))
+    test_dirs = _detect_named_dirs(target_repo, ("tests", "test", "spec"))
+    docs_dirs = _detect_named_dirs(target_repo, ("docs", "doc"))
     entrypoints = _detect_entrypoints(target_repo)
     test_commands = _detect_test_commands(target_repo, primary_language, package_managers)
     run_commands = _detect_run_commands(target_repo, primary_language, package_managers)
@@ -102,11 +101,14 @@ def _detect_named_dirs(root: Path, candidates: tuple[str, ...]) -> list[str]:
 
 def _detect_entrypoints(root: Path) -> list[str]:
     candidates: list[str] = []
+    # Common top-level Python entry scripts.
     for rel_path in ("main.py", "app.py", "manage.py"):
         if (root / rel_path).exists():
             candidates.append(rel_path)
-    if (root / "amcp" / "main.py").exists():
-        candidates.append("amcp/main.py")
+    # Detect __main__.py inside any immediate child package.
+    for child in sorted(root.iterdir()):
+        if child.is_dir() and (child / "__main__.py").exists():
+            candidates.append(f"{child.name}/__main__.py")
     if (root / "package.json").exists():
         candidates.append("package.json scripts")
     return _unique(candidates)
@@ -139,10 +141,7 @@ def _detect_run_commands(
     package_managers: list[str],
 ) -> list[str]:
     commands: list[str] = []
-    if (root / "amcp" / "main.py").exists():
-        commands.append("python3 amcp/main.py demo")
-        commands.append("python3 amcp/main.py self-test")
-    elif primary_language == "python":
+    if primary_language == "python":
         if (root / "main.py").exists():
             commands.append("python3 main.py")
         else:
@@ -167,7 +166,10 @@ def _detect_risk_notes(root: Path) -> list[str]:
     if (root / ".github" / "workflows").exists():
         notes.append("CI workflows exist; keep command examples aligned with CI expectations.")
     if (root / "deploy").exists() or (root / "infra").exists():
-        notes.append("Deployment/infrastructure directories detected; require explicit approval before changes.")
+        notes.append(
+            "Deployment/infrastructure directories detected;"
+            " require explicit approval before changes."
+        )
     return notes
 
 

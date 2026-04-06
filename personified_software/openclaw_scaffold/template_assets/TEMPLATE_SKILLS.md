@@ -1,8 +1,3 @@
-# TEMPLATE_SKILLS.md
-
-> Universal template for generating `skills.md` in a target repository.
-> Replace placeholders like `{REPO_NAME}` with real profile values.
-
 # skills.md — Repository Read/Modify Skill Contract
 
 ## Skill Name

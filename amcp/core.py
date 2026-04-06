@@ -3,14 +3,14 @@ from __future__ import annotations
 import hashlib
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
 def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def canonical_json(payload: dict) -> str:
@@ -47,7 +47,7 @@ class ConsentGrant(BaseModel):
     expires_at: datetime | None = None
     revoked_at: datetime | None = None
 
-    def matches(self, request: "AccessRequest", evaluated_at: datetime) -> bool:
+    def matches(self, request: AccessRequest, evaluated_at: datetime) -> bool:
         if self.granted_at > evaluated_at:
             return False
         if self.revoked_at is not None and self.revoked_at <= evaluated_at:

@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentic-suite"
+version = "0.1.0"
+description = "A suite of protocols, design principles, and paradigms for building agentic software"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+amcp = [
+    "cyclopts",
+    "loguru",
+    "pydantic>=2.0",
+    "pydantic-ai",
+    "langgraph",
+]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+all = [
+    "agentic-suite[amcp]",
+    "agentic-suite[dev]",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["amcp", "personified_software", "agentic_runtime", "agentic_devops"]
+
+[tool.pytest.ini_options]
+testpaths = ["amcp", "tests", "agentic_runtime", "agentic_devops"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+# Start with a minimal safe rule set. Tighten incrementally over time.
+# Phase 1 (current): only fatal errors that indicate broken code.
+# Phase 2 (future): re-enable F401 (unused imports), F841 (unused vars).
+# Phase 3 (future): re-enable E501 (line length), I001 (import sorting).
+# Phase 4 (future): re-enable UP (pyupgrade), W (warnings), and expand to B, SIM, etc.
+select = [
+    "F811",  # redefined-unused — almost always a real bug
+    "F821",  # undefined-name — will crash at runtime
+    "F631",  # assert-tuple — always a bug
+    "E711",  # comparison-to-none (use `is None`)
+    "E712",  # comparison-to-true (use `is True`)
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

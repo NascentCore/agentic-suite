@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from typing import Literal
 
@@ -14,15 +14,9 @@ from .core import (
     ConsentGrant,
     MemoryCustodian,
     MemoryRecord,
+    canonical_json,
+    utc_now,
 )
-
-
-def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
-
-
-def canonical_json(payload: dict) -> str:
-    return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
 class MigrationManifestV1(BaseModel):
@@ -65,7 +59,7 @@ class AMCPMigrationEnvelopeV1(BaseModel):
         output_path.write_text(self.canonical_json() + "\n", encoding="utf-8")
 
     @classmethod
-    def load(cls, input_path: Path) -> "AMCPMigrationEnvelopeV1":
+    def load(cls, input_path: Path) -> AMCPMigrationEnvelopeV1:
         payload = json.loads(input_path.read_text(encoding="utf-8"))
         return cls.model_validate(payload)
 

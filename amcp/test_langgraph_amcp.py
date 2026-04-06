@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from research.amcp.adapters import run_langgraph_amcp_flow
-from research.amcp.core import ConsentGrant, build_demo_custodian
+from .adapters import run_langgraph_amcp_flow
+from .core import ConsentGrant, build_demo_custodian
 
 
 def _run_flow(
