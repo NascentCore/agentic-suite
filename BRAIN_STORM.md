@@ -1,5 +1,63 @@
 # Agentic AI Era: Tool Protocol Patterns and Paradigms
 
+## 0) Three-Layer Agentic Architecture
+
+The design space in this document has been concretised into a **three-layer agentic suite**,
+each layer sharing a common foundation of patterns, policies, and provenance:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                        Agentic Suite                              │
+│                                                                   │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
+│  │  Agentic Repo   │→│ Agentic DevOps  │→│ Agentic Runtime │  │
+│  │  (code)         │  │ (deploy)        │  │ (operate)       │  │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
+│                                                                   │
+│  ┌───────────────────────────────────────────────────────────┐   │
+│  │  Shared: AMCP · Policy Engine · Provenance · Adapters      │   │
+│  └───────────────────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Layer 1 — Agentic Repo (`personified_software/openclaw_scaffold/`)
+
+Static code-level agentic interface.  Developers interact with the repository
+through conversation.  The scaffold auto-profiles the repo and generates
+`SOUL.md`, `skills.md`, `AGENTS.md`, `TOOLS.md` — giving any LLM agent the
+context it needs to understand and safely modify the codebase.
+
+### Layer 2 — Agentic DevOps (`agentic_devops/`)
+
+Deployment and operations agentic interface.  Scans CI config, Dockerfiles,
+and k8s manifests to build a deploy profile, then provides:
+- Saga-based pipeline orchestration (build → test → deploy → verify)
+- Health monitoring with failure-threshold escalation
+- AI-assisted incident lifecycle (detect → diagnose → remediate → verify)
+- Safe rollback with version history tracking
+
+Implements patterns: **Planner-Executor**, **Saga**, **Approval Gate**, **Provenance**, **Observability**.
+
+### Layer 3 — Agentic Runtime (`agentic_runtime/`)
+
+Runtime agentic interface.  Discovers what a running application can do
+(OpenAPI, CLI, manual manifest) and exposes capabilities as typed tools.
+Users interact through natural language, with policy-gated execution:
+- Tool registry with typed manifests
+- RBAC + approval gates + rate limiting
+- Saga-enabled multi-step execution with compensation
+- Multi-turn session management with checkpoint/resume
+
+Implements patterns: **Typed Tool Invocation**, **Capability Negotiation**, **Approval Gate**, **Saga**, **Provenance**.
+
+### Cross-Layer Workflows
+
+1. **Code → Deploy → Runtime**: code change → DevOps auto-deploys → Runtime refreshes tools.
+2. **Runtime → Incident → DevOps**: anomaly → incident → diagnosis → rollback.
+3. **Incident → Repo**: post-mortem → auto-RFC → Agentic Repo assists fix.
+
+---
+
 ## 1) Design Space Dimensions
 
 When designing a suite of tool protocols for agentic systems, evaluate choices along these axes:
