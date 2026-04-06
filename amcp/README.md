@@ -146,10 +146,22 @@ File: `amcp/adapters.py`
   - edge rule: denied -> consent node, allowed -> llm node
   - example entrypoint: `amcp/langgraph_example.py`
 
+### Layer 4 — Migration and Portability
+
+File: `amcp/migration.py`
+
+- portable memory bundle export/import with integrity verification
+- `MigrationManifestV1`: record count, grant count, SHA-256 bundle hash
+- `AMCPMigrationEnvelopeV1`: manifest + bundle + optional signatures
+- `ConsentPortabilityPolicyV1`: least-privilege defaults for grant migration
+- staged import/activate lifecycle with quarantine for non-compliant grants
+- idempotent activation (safe to replay)
+
 ### Why this works
 
 - AMCP policy remains single source of truth.
 - Framework migration only changes adapter layer, not policy semantics.
+- Memory portability preserves strict least-privilege defaults.
 - Audit trace is consistent across frameworks.
 
 ## PydanticAI tests
