@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from typing import Literal
 
@@ -14,15 +13,9 @@ from .core import (
     ConsentGrant,
     MemoryCustodian,
     MemoryRecord,
+    canonical_json,
+    utc_now,
 )
-
-
-def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
-
-
-def canonical_json(payload: dict) -> str:
-    return json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
 class MigrationManifestV1(BaseModel):
