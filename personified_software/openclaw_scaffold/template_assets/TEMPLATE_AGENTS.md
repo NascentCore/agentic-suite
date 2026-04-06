@@ -1,8 +1,3 @@
-# TEMPLATE_AGENTS.md
-
-> Universal template for generating `AGENTS.md` in a target repository.
-> Replace placeholders with actual repository profile values.
-
 # AGENTS.md — OpenClaw-like Agent Boot Instructions
 
 ## Boot Sequence
