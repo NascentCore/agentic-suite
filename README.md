@@ -1,92 +1,113 @@
-# agentic_suite
+# Agentic Suite
 
-A suite of protocols, design principles, and paradigms for building agentic software.
+A suite of highly-complementary protocols, design principles, and paradigms for building agentic software.
 
-## Components
+## Three-Layer Architecture
 
-### AMCP — Agent Memory Custodian Protocol
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                        Agentic Suite                              │
+│                                                                   │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
+│  │  Agentic Repo   │→│ Agentic DevOps  │→│ Agentic Runtime │  │
+│  │  (code)         │  │ (deploy)        │  │ (operate)       │  │
+│  │                 │  │                 │  │                 │  │
+│  │  SOUL.md        │  │ DEVOPS_RUNBOOK  │  │ RUNTIME_TOOLS   │  │
+│  │  skills.md      │  │ DEPLOY_SKILLS   │  │ RUNTIME_SKILLS  │  │
+│  │  AGENTS.md      │  │ MONITOR_CONFIG  │  │ RUNTIME_AGENTS  │  │
+│  │  TOOLS.md       │  │                 │  │                 │  │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
+│                                                                   │
+│  ┌───────────────────────────────────────────────────────────┐   │
+│  │                  Shared Foundation                          │   │
+│  │  AMCP (memory/consent) · Policy Engine · Provenance        │   │
+│  │  Observability · Eval Harness · Framework Adapters         │   │
+│  └───────────────────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────┘
+```
 
-A minimal protocol for **user-controlled ownership of agent memory**, inspired by AT Protocol concepts (portable identity, explicit consent, content-addressable records).
+### Layer Descriptions
 
-- **Core policy**: same-runner + original-purpose access is always allowed; cross-purpose access requires explicit consent from every memory owner.
-- **Cooperative ownership**: multi-user memories require unanimous consent for cross-purpose use.
-- **Framework adapters**: PydanticAI and LangGraph integrations.
-- **Migration**: portable memory bundles with manifest integrity checks and staged import/activate lifecycle.
+| Layer | Module | Purpose |
+|-------|--------|---------|
+| **Agentic Repo** | `personified_software/openclaw_scaffold/` | Developer ↔ Code — agents that understand and modify code through conversation |
+| **Agentic DevOps** | `agentic_devops/` | Code → Production — automated build, test, deploy, monitor, and incident response |
+| **Agentic Runtime** | `agentic_runtime/` | User ↔ Running Software — natural-language interface for using any running application |
 
-See [`amcp/README.md`](amcp/README.md) for full documentation and [`amcp/ROADMAP.md`](amcp/ROADMAP.md) for the roadmap.
+### Cross-Layer Workflows
 
-### Personified Software Scaffold
+1. **Code → Deploy → Runtime**: Code changes → DevOps auto-deploys → Runtime refreshes tool registry
+2. **Runtime → Incident → DevOps**: Runtime anomaly → auto-create incident → DevOps diagnoses and rollbacks
+3. **Incident → Repo**: Post-incident review → auto-create issue/RFC → Agentic Repo assists with fix
 
-A universal toolkit for turning **any repository** into an agent-ready, personified workspace. Generates standardized agent boot files:
+## Modules
 
-- `SOUL.md` — identity, mission, values, domain context
-- `skills.md` — read/modify skill contract
-- `AGENTS.md` — boot sequence and operating loop
-- `TOOLS.md` — command playbook
-- Optional `SKILL.md` compatibility shim
+### `personified_software/` — Agentic Repo
 
-See [`personified_software/README.md`](personified_software/README.md) for usage.
-
-### Design Documents
-
-- [`BRAIN_STORM.md`](BRAIN_STORM.md) — tool protocol patterns and architectural paradigms for agentic systems
-- [`personified_software/INSTRUCTIONS.md`](personified_software/INSTRUCTIONS.md) — personified repository design principles and self-evolution loop
-- [`docs/FR_IMATE_DEVELOPMENT_PLAN.md`](docs/FR_IMATE_DEVELOPMENT_PLAN.md) — codebase review findings and improvement plan
-
-## Quick Start
+Universal OpenClaw-like scaffold toolkit for turning **any repository** into an agent-ready, personified workspace. Profiles a repo's structure, language, commands, and risks, then generates `SOUL.md`, `skills.md`, `AGENTS.md`, `TOOLS.md`.
 
 ```bash
-# Install in development mode
-pip install -e ".[all]"
-
-# Run AMCP demo
-python3 -m amcp.main demo
-
-# Run all tests
-python3 -m pytest
-
-# Generate scaffold for any repo
-python3 -m personified_software.openclaw_scaffold.cli /path/to/target-repo --dry-run
+python3 -m personified_software.openclaw_scaffold.cli /path/to/repo
 ```
 
-## Project Structure
+### `agentic_runtime/` — Agentic Runtime
 
-```
-agentic_suite/
-├── amcp/                          # Agent Memory Custodian Protocol
-│   ├── core.py                    #   policy engine + data models
-│   ├── adapters.py                #   PydanticAI + LangGraph integrations
-│   ├── migration.py               #   portable memory migration
-│   ├── main.py                    #   CLI entry (demo, self-test, export)
-│   └── test_*.py                  #   tests (12 tests)
-├── personified_software/          # Personified Software toolkit
-│   ├── openclaw_scaffold/         #   scaffold generator
-│   │   ├── detector.py            #     repo profiling heuristics
-│   │   ├── templates.py           #     template rendering (loads from template_assets/)
-│   │   ├── generator.py           #     generation orchestration
-│   │   ├── cli.py                 #     CLI interface
-│   │   ├── models.py              #     data models
-│   │   └── template_assets/       #     markdown templates (single source of truth)
-│   └── examples/                  #   sample generated output
-├── tests/                         # Scaffold tests (64 tests)
-├── docs/                          # Development plans and architecture
-├── BRAIN_STORM.md                 # Protocol design patterns
-└── pyproject.toml                 # Project configuration
-```
-
-## Development
+Discovers what a running application can do (API endpoints, CLI commands, etc.) and exposes those capabilities as typed tools for conversational interaction.
 
 ```bash
-# Install with all dependencies
-pip install -e ".[all]"
-
-# Run tests
-python3 -m pytest -v
-
-# Lint
-ruff check .
+python3 -m agentic_runtime.cli profile --app-name my-api --openapi-url http://localhost:8000/openapi.json
+python3 -m agentic_runtime.cli generate --profile profile.json --output-dir ./
 ```
 
-## License
+### `agentic_devops/` — Agentic DevOps
 
-MIT
+Scans a repository for deployment infrastructure and provides saga-based pipeline orchestration, health monitoring, incident management, and safe rollback.
+
+```bash
+python3 -m agentic_devops.cli detect /path/to/repo
+python3 -m agentic_devops.cli deploy /path/to/repo --env staging --dry-run
+python3 -m agentic_devops.cli monitor --target http://localhost:8000/health --type http
+```
+
+### `amcp/` — Agent Memory Custodian Protocol
+
+Minimal protocol for user-controlled agent memory ownership with consent-based access, cooperative ownership, and portable migration.
+
+```bash
+python3 amcp/main.py demo
+python3 amcp/main.py self-test
+```
+
+## Design Patterns (from BRAIN_STORM.md)
+
+All modules share patterns from the [design space document](BRAIN_STORM.md):
+
+| Pattern | Used in |
+|---------|---------|
+| Typed Tool Invocation | Runtime (ToolManifest), DevOps (PipelineStage) |
+| Capability Negotiation | Runtime (ToolRegistry.refresh_from_profile) |
+| Planner-Executor Separation | DevOps (PipelineEngine) |
+| Saga with Compensating Actions | Runtime (executor.execute_saga), DevOps (pipeline compensators) |
+| Human Approval Gate | Runtime (PolicyEngine), DevOps (deployment/remediation gates) |
+| Provenance and Attestation | Runtime (ExecutionProvenance), DevOps (PipelineProvenance) |
+| Observability Layer | DevOps (MonitorEngine, HealthCheck) |
+
+## Framework Adapters
+
+Both `agentic_runtime` and `agentic_devops` provide adapters for:
+
+- **PydanticAI** — agent with tool functions
+- **LangGraph** — state graph with policy-gated nodes
+
+These follow the same port-adapter architecture as `amcp/adapters.py`.
+
+## Testing
+
+```bash
+# All tests
+python3 -m pytest -q
+
+# Per module
+python3 -m pytest -q agentic_runtime/
+python3 -m pytest -q agentic_devops/
+```
