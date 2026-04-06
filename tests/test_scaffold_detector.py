@@ -184,3 +184,35 @@ def test_ignored_dirs_are_not_counted(tmp_path: Path) -> None:
 def test_repo_name_matches_directory_name(tmp_path: Path) -> None:
     profile = detect_repo_profile(tmp_path)
     assert profile.repo_name == tmp_path.resolve().name
+
+
+# ---------------------------------------------------------------------------
+# No hardcoded repo-specific names
+# ---------------------------------------------------------------------------
+
+def test_detector_does_not_hardcode_amcp_in_source_dirs(tmp_path: Path) -> None:
+    """amcp should not appear in source dir candidates for an empty repo."""
+    (tmp_path / "amcp").mkdir()
+    profile = detect_repo_profile(tmp_path)
+    assert "amcp" not in profile.source_dirs
+
+
+def test_detector_does_not_hardcode_amcp_in_test_dirs(tmp_path: Path) -> None:
+    (tmp_path / "amcp").mkdir()
+    profile = detect_repo_profile(tmp_path)
+    assert "amcp" not in profile.test_dirs
+
+
+def test_detector_does_not_hardcode_personified_software_in_docs(tmp_path: Path) -> None:
+    (tmp_path / "personified_software").mkdir()
+    profile = detect_repo_profile(tmp_path)
+    assert "personified_software" not in profile.docs_dirs
+
+
+def test_detector_detects_dunder_main_entrypoint(tmp_path: Path) -> None:
+    """Packages with __main__.py should be detected as entrypoints."""
+    pkg = tmp_path / "mypkg"
+    pkg.mkdir()
+    _make_file(pkg / "__main__.py")
+    profile = detect_repo_profile(tmp_path)
+    assert "mypkg/__main__.py" in profile.entrypoint_candidates
