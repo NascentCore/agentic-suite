@@ -49,6 +49,11 @@ def render_skill_alias() -> str:
     return template.strip() + "\n"
 
 
+def render_style() -> str:
+    template = _load_template("TEMPLATE_STYLE.md")
+    return template.strip() + "\n"
+
+
 def render_scaffold_readme() -> str:
     """Render the scaffold product README (kept inline — not a per-repo template)."""
     return (

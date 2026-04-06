@@ -7,6 +7,7 @@ from .templates import (
     render_skill_alias,
     render_skills,
     render_soul,
+    render_style,
     render_tools,
 )
 
@@ -30,6 +31,8 @@ def generate_scaffold(options: ScaffoldOptions) -> ScaffoldResult:
     }
     if options.include_skill_alias:
         outputs["SKILL.md"] = render_skill_alias()
+    if options.include_style:
+        outputs["STYLE.md"] = render_style()
 
     artifacts: list[RenderedArtifact] = []
     for filename in options.output_filenames():

@@ -10,6 +10,7 @@ from personified_software.openclaw_scaffold.templates import (
     render_skill_alias,
     render_skills,
     render_soul,
+    render_style,
     render_tools,
 )
 
@@ -123,6 +124,20 @@ def test_render_tools_contains_troubleshooting() -> None:
 def test_render_skill_alias_points_to_skills_md() -> None:
     content = render_skill_alias()
     assert "skills.md" in content
+
+
+# ---------------------------------------------------------------------------
+# STYLE.md
+# ---------------------------------------------------------------------------
+
+def test_render_style_contains_tone_section() -> None:
+    content = render_style()
+    assert "Tone" in content
+
+
+def test_render_style_contains_safety_language() -> None:
+    content = render_style()
+    assert "Safety" in content or "uncertain" in content.lower()
 
 
 # ---------------------------------------------------------------------------

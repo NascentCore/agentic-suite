@@ -53,6 +53,12 @@ def test_parser_dry_run_flag(tmp_path: Path) -> None:
     assert args.dry_run is True
 
 
+def test_parser_include_style_flag(tmp_path: Path) -> None:
+    parser = build_parser()
+    args = parser.parse_args([str(tmp_path), "--include-style"])
+    assert args.include_style is True
+
+
 def test_parser_all_flags_combined(tmp_path: Path) -> None:
     parser = build_parser()
     output = tmp_path / "out"

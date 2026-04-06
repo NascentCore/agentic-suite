@@ -91,6 +91,31 @@ def test_generate_scaffold_overwrites_existing_with_flag(tmp_path: Path) -> None
 
 
 # ---------------------------------------------------------------------------
+# STYLE.md generation
+# ---------------------------------------------------------------------------
+
+def test_generate_scaffold_with_style(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    options = ScaffoldOptions(target_repo=repo, include_style=True)
+    result = generate_scaffold(options)
+
+    created = {Path(f).name for f in result.created_files}
+    assert "STYLE.md" in created
+    assert (repo / "STYLE.md").exists()
+    content = (repo / "STYLE.md").read_text(encoding="utf-8")
+    assert "Tone" in content
+
+
+def test_generate_scaffold_without_style_by_default(tmp_path: Path) -> None:
+    repo = _make_repo(tmp_path)
+    options = ScaffoldOptions(target_repo=repo)
+    result = generate_scaffold(options)
+
+    created = {Path(f).name for f in result.created_files}
+    assert "STYLE.md" not in created
+
+
+# ---------------------------------------------------------------------------
 # Custom output dir
 # ---------------------------------------------------------------------------
 

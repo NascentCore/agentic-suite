@@ -32,6 +32,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Do not generate SKILL.md compatibility shim.",
     )
     parser.add_argument(
+        "--include-style",
+        action="store_true",
+        help="Also generate STYLE.md communication style profile.",
+    )
+    parser.add_argument(
         "--overwrite",
         action="store_true",
         help="Overwrite existing scaffold files.",
@@ -51,6 +56,7 @@ def main() -> int:
         target_repo=args.target_repo,
         output_dir=args.output_dir,
         include_skill_alias=not args.no_skill_alias,
+        include_style=args.include_style,
         overwrite=args.overwrite,
         dry_run=args.dry_run,
     )
