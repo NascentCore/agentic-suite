@@ -7,7 +7,7 @@ import cyclopts
 from loguru import logger
 from pydantic import ValidationError
 
-from research.amcp.core import (
+from .core import (
     AccessDecision,
     AccessRequest,
     ConsentGrant,

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import cyclopts
 
-from research.amcp.adapters import run_langgraph_amcp_flow
-from research.amcp.core import ConsentGrant, build_demo_custodian
+from .adapters import run_langgraph_amcp_flow
+from .core import ConsentGrant, build_demo_custodian
 
 
 app = cyclopts.App(help="AMCP LangGraph integration example.")

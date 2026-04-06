@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from research.amcp.core import AccessRequest, ConsentGrant, MemoryCustodian, build_demo_custodian
-from research.amcp.migration import (
+from .core import AccessRequest, ConsentGrant, MemoryCustodian, build_demo_custodian
+from .migration import (
     AMCPMigrationEnvelopeV1,
     ConsentPortabilityPolicyV1,
     MigrationExportSignatureV1,
