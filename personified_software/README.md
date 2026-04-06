@@ -1,8 +1,47 @@
-# personified_agentic_repository
+# personified_software
 
-A personified repository built on top of agentic paradigm, which uses markdown files to describe a persona of the software implemented in the repo. So that an agentic coding tool like claude code can easily understand the repo, also the people working on this repo also can easily understand the system by plug in an agentic tool.
+Universal OpenClaw-like scaffold toolkit for turning **any repository** into an agent-ready, personified workspace.
+
+## What this product provides
+
+Inside `personified_software/openclaw_scaffold/`, this product provides:
+
+- repository profiling heuristics (`detector.py`)
+- scaffold generation engine (`generator.py`)
+- CLI entrypoint (`cli.py`)
+- template rendering (`templates.py`)
+- data models (`models.py`)
+- product docs:
+  - `README.md`
+  - `repo_profile_checklist.md`
+  - `instantiation_guide.md`
 
 ## Quick start
 
-Copy the content of `INSTRUCTIONS.md` into your favorite AI coding agent (Cursor Claude Code etc.),
-and let the agent do everything for you.
+### 1) Dry-run against any repo
+
+```bash
+python3 -m personified_software.openclaw_scaffold.cli /path/to/target/repo --dry-run
+```
+
+### 2) Generate scaffold files
+
+```bash
+python3 -m personified_software.openclaw_scaffold.cli /path/to/target/repo
+```
+
+Generates:
+
+- `SOUL.md`
+- `skills.md`
+- `AGENTS.md`
+- `TOOLS.md`
+- optional `SKILL.md` compatibility shim
+
+## Example output in this repository
+
+A generated sample is stored at:
+
+- `personified_software/examples/generated_for_personified/`
+
+You can inspect it as a reference for expected output shape.
