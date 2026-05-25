@@ -36,33 +36,41 @@ Dataset: https://huggingface.co/datasets/constraint/constraint_decay/tree/main
 
 Official repo: https://anonymous.4open.science/r/constraint-decay — returned HTTP 403 during setup. Local harness: [`constraint_decay/constraint_decay/`](../constraint_decay/constraint_decay/).
 
-## Phase 1 — smoke (optional)
+## Phases 1–3 — run new experiments (TODO)
 
-**Requires:** Docker, `LLM_API_KEY`, upstream `main.py` from vendor repo.
+**Checklist:** [`constraint_decay/PHASES_TODO.md`](../constraint_decay/PHASES_TODO.md)
+
+| Phase | What | API key? |
+|-------|------|----------|
+| **0** | Analyze HF `results.zip` only | No |
+| **1** | Smoke: 1 task, 1 agent run | Yes |
+| **2** | 16-task paper subset × 3 runs | Yes |
+| **3** | Full 100 tasks + RQ3 judges + tokens | Yes + large budget |
+
+### Phase 1 — smoke (TODO)
 
 ```bash
-export LLM_API_KEY=...
+# TODO: vendor upstream main.py + Docker first (see PHASES_TODO.md)
+export LLM_API_KEY=...                    # OpenRouter: set LLM_BASE_URL in .env
 ./scripts/constraint_decay_eval.sh phase-1
 ```
 
-`# TODO(phase-1)` in [`scripts/constraint_decay_eval.sh`](../scripts/constraint_decay_eval.sh)
-
-## Phase 2 — 16-task subset (optional)
-
-48 runs per model–agent (16 tasks × 3). Task list: [`constraint_decay/SUBSET_TASKS.txt`](../constraint_decay/SUBSET_TASKS.txt).
+### Phase 2 — 16-task subset (TODO)
 
 ```bash
+export LLM_API_KEY=...
 export AGENT=mini_swe_sdk
 ./scripts/constraint_decay_eval.sh phase-2
+./scripts/constraint_decay_eval.sh phase-0   # TODO: refresh tables after runs
 ```
 
-Do **not** use `main.py --task uv` alone — that runs all 40 Python tasks.
+Task list: [`constraint_decay/SUBSET_TASKS.txt`](../constraint_decay/SUBSET_TASKS.txt). Do **not** use `main.py --task uv` alone (40 tasks).
 
-## Phase 3 — full study (optional)
+### Phase 3 — full study (TODO)
 
-~5B tokens; re-run `failure_analysis.py`, `tokens.py` from upstream when available.
+~5B tokens; commands in [`constraint_decay/PHASES_TODO.md`](../constraint_decay/PHASES_TODO.md). Stub: `./scripts/constraint_decay_eval.sh phase-3` prints checklist.
 
-`# TODO(phase-3)` in script and [`eval_harness/constraint_decay/__init__.py`](../eval_harness/constraint_decay/__init__.py)
+Code markers: `# TODO(phase-1|2|3)` in [`scripts/constraint_decay_eval.sh`](../scripts/constraint_decay_eval.sh), [`eval_harness/constraint_decay/`](../eval_harness/constraint_decay/__init__.py).
 
 ## Metrics (RQ summary)
 

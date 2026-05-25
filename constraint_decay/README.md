@@ -6,6 +6,8 @@ Upstream vendor repo ([anonymous.4open.science](https://anonymous.4open.science/
 
 See [../docs/CONSTRAINT_DECAY.md](../docs/CONSTRAINT_DECAY.md) for the full roadmap.
 
+**TODO (new experiments):** [PHASES_TODO.md](PHASES_TODO.md) — Phases 1–3 checklist (Docker, API key, vendor `main.py`).
+
 ```bash
 pip install -e .
 python3 -m constraint_decay.evaluation_tables data
