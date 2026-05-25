@@ -10,7 +10,8 @@ A suite of highly-complementary protocols, design principles, and paradigms for 
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
 │  │  Agentic Repo   │ →│ Agentic DevOps  │ →│ Agentic Runtime │  │
 │  │  (code)         │  │ (deploy)        │  │ (operate)       │  │
-│  │                 │  │                 │  │                 │  │
+│  │  MCP.md         │  │                 │  │                 │  │
+│  │  (static info)  │  │                 │  │                 │  │
 │  │  SOUL.md        │  │ DEVOPS_RUNBOOK  │  │ RUNTIME_TOOLS   │  │
 │  │  skills.md      │  │ DEPLOY_SKILLS   │  │ RUNTIME_SKILLS  │  │
 │  │  AGENTS.md      │  │ MONITOR_CONFIG  │  │ RUNTIME_AGENTS  │  │
