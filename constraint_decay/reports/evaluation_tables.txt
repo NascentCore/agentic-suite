@@ -1,0 +1,74 @@
+Table 1: A% and pass@1 by constraint level
+Agent        Model                      L0     L1     L2     L3   p@1 L0  p@1 L3     ΔA%
+Mini-SWE     Kimi-K2.5                85.4   72.5   62.9   53.7     66.7    33.3   -31.7
+Mini-SWE     GPT-5-mini               51.7   46.8   27.7   25.1     25.0     4.2   -26.6
+Mini-SWE     GPT-5.2                  78.2   49.3   27.1   48.0     58.3    25.0   -30.2
+Mini-SWE     MiniMax-M2.5             88.6   92.5   66.8   58.3     58.3    25.0   -30.3
+Mini-SWE     qwen3-235b               29.6   10.7    9.3    2.9     20.8     0.0   -26.7
+Mini-SWE     Qwen3-Coder-Next         86.4   66.4   54.7   48.8     45.8     6.2   -37.5
+OpenHands    GPT-5-mini               65.8   63.2   57.7   54.7     62.5    35.4   -11.1
+OpenHands    MiniMax-M2.5             95.1   95.9   84.6   80.4     58.3    33.3   -14.7
+OpenHands    qwen3-235b               26.2   17.7    3.1    0.8     12.5     0.0   -25.4
+OpenHands    Qwen3-Coder-Next         73.0   51.8   48.5   34.3     45.8     4.8   -38.7
+
+Capable configs (L0>50.0%): mean ΔA%(L3-L0) = -27.6 pp (n=8)
+
+Note: HF results export has no verifier sidecars; A% is from Newman CSV only (paper Table 1-raw; full Table 1 differs by ≤2.7 pp).
+
+Table 2a: Marginal constraint effects (matched-pair ΔA%, pp)
+  Clean architecture     -5.2 ± 1.3
+  PostgreSQL             -16.0 ± 1.2
+  SQLite                 -14.5 ± 1.2
+  SQLAlchemy             +2.1 ± 1.6
+  Sequelize              +0.6 ± 1.3
+
+Table 2b: Feature implementation pass@1 (%)
+Model                    Mini-SWE  OpenHands
+gpt-5-mini                   15.0       48.3
+gpt-5.2                      50.0       55.0
+minimax-m2.5                 46.7       38.3
+qwen3-coder-next             27.8       18.8
+
+Table 1-raw (no verifiers)
+Agent        Model                      L0     L1     L2     L3   p@1 L0  p@1 L3     ΔA%
+Mini-SWE     Kimi-K2.5                85.4   72.5   62.9   53.7     66.7    33.3   -31.7
+Mini-SWE     GPT-5-mini               51.7   46.8   27.7   25.1     25.0     4.2   -26.6
+Mini-SWE     GPT-5.2                  78.2   49.3   27.1   48.0     58.3    25.0   -30.2
+Mini-SWE     MiniMax-M2.5             88.6   92.5   66.8   58.3     58.3    25.0   -30.3
+Mini-SWE     qwen3-235b               29.6   10.7    9.3    2.9     20.8     0.0   -26.7
+Mini-SWE     Qwen3-Coder-Next         86.4   66.4   54.7   48.8     45.8     6.2   -37.5
+OpenHands    GPT-5-mini               65.8   63.2   57.7   54.7     62.5    35.4   -11.1
+OpenHands    MiniMax-M2.5             95.1   95.9   84.6   80.4     58.3    33.3   -14.7
+OpenHands    qwen3-235b               26.2   17.7    3.1    0.8     12.5     0.0   -25.4
+OpenHands    Qwen3-Coder-Next         73.0   51.8   48.5   34.3     45.8     4.8   -38.7
+
+Capable configs (L0>50.0%): mean ΔA%(L3-L0) = -27.6 pp (n=8)
+
+Note: HF results export has no verifier sidecars; A% is from Newman CSV only (paper Table 1-raw; full Table 1 differs by ≤2.7 pp).
+
+Table 3: A% by framework (aggregated across levels)
+
+Model: GPT-5-mini
+Framework      Mini-SWE  OpenHands
+aiohttp            34.7       64.3
+django             37.2       69.8
+express            60.0       84.2
+fastapi            21.4       25.4
+fastify            35.5       55.8
+flask              38.5       72.6
+hono                6.1       15.9
+koa                49.2       88.4
+
+Model: Qwen3-Coder-Next
+Framework      Mini-SWE  OpenHands
+aiohttp            48.0       56.4
+django             38.8       22.3
+express            71.8       60.8
+fastapi            63.1       36.6
+fastify            60.2       30.9
+flask              79.1       76.5
+hono               54.0       30.4
+koa                66.4       78.5
+
+Model: Qwen3-235B-A22B
+Framework      Mini-SWE  OpenHands

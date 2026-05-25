@@ -1,0 +1,4 @@
+RQ3: Failure taxonomy
+Precomputed failure_analysis_*.csv not in HuggingFace results.zip only.
+Paper claim: ~45% of logic errors are data-layer (ORM/query) — reproduce via upstream failure_analysis_logic.py after cloning constraint-decay.
+TODO(phase-3): download judge CSVs from full repo or re-run LLM judge.

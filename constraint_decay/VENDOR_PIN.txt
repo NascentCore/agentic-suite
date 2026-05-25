@@ -1,0 +1,6 @@
+upstream_repo=https://anonymous.4open.science/r/constraint-decay
+upstream_status=HTTP_403_at_vendor_time
+replication_harness=workspace/constraint_decay/constraint_decay/
+hf_results=constraint/constraint_decay results.zip
+hf_snapshot=9fbafab8c178060a01dffee586a56b79ba1eefcc
+vendored_date=2026-05-25

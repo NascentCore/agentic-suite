@@ -1,0 +1,19 @@
+# 16-task cost subset (paper §4): aiohttp + fastapi + express + fastify × L0–L3
+# Use with: while read -r t; do [[ "$t" =~ ^#|^$ ]] && continue; uv run main.py --agent AGENT --task "$t" --runs 3; done < SUBSET_TASKS.txt
+
+uv/uv-aiohttp-openapi-unconstrained.json
+uv/uv-aiohttp-openapi-clean_architecture.json
+uv/uv-aiohttp-openapi-clean_architecture-postgres.json
+uv/uv-aiohttp-openapi-clean_architecture-postgres-sqlalchemy.json
+uv/uv-fastapi-openapi-unconstrained.json
+uv/uv-fastapi-openapi-clean_architecture.json
+uv/uv-fastapi-openapi-clean_architecture-postgres.json
+uv/uv-fastapi-openapi-clean_architecture-postgres-sqlalchemy.json
+node/node-express-openapi-unconstrained.json
+node/node-express-openapi-clean_architecture.json
+node/node-express-openapi-clean_architecture-postgres.json
+node/node-express-openapi-clean_architecture-postgres-sequelize.json
+node/node-fastify-openapi-unconstrained.json
+node/node-fastify-openapi-clean_architecture.json
+node/node-fastify-openapi-clean_architecture-postgres.json
+node/node-fastify-openapi-clean_architecture-postgres-sequelize.json
